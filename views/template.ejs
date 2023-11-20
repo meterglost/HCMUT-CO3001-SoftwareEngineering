@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BK PRINT</title>
+
+		<link rel="preconnect" href="https://rsms.me/" />
+		<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+		<link rel="preconnect" href="https://kit-pro.fontawesome.com" />
+		<link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v6.4.2/css/pro.min.css" />
+
+		<link rel="stylesheet" href="./stylesheet/common.css" />
+	</head>
+
+	<body>
+		<!-- Header -->
+		<% if ("header" in components) { %> <%- include(components.header) %> <% } %>
+		<!-- Main -->
+		<% if ("main" in components) { %> <%- include(components.main) %> <% } %>
+		<!-- Footer -->
+		<% if ("footer" in components) { %> <%- include(components.footer) %> <% } %>
+		<!-- Script -->
+		<% if ("script" in components) { %> <%- include(components.script) %> <% } %>
+		<!-- <script src="./asset/js/main.js"></script>
+		<script src="./asset/js/index.js"></script> -->
+	</body>
+</html>

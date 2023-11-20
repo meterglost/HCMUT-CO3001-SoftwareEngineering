@@ -8,7 +8,17 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-	res.render("index");
+	res.render("template", {
+		components: {
+			header: "header",
+			main: "pages/index",
+			footer: "footer",
+		},
+		user: {
+			name: "Username",
+			balance: 0,
+		},
+	});
 });
 
 app.listen(port, () => {

@@ -1,0 +1,85 @@
+<style>
+	header {
+		display: flex;
+		justify-content: space-between;
+
+		& #service {
+			text-align: left;
+		}
+
+		& #client {
+			text-align: right;
+		}
+	}
+
+	header #service {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		column-gap: 1em;
+
+		& > a {
+			display: inline-block;
+			text-decoration: none;
+			color: #000;
+		}
+	}
+
+	header #service #service-logo {
+		height: 100%;
+		aspect-ratio: 1 / 1;
+
+		& img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	header #service #service-name {
+		font-size: 2em;
+		font-weight: 700;
+		text-wrap: nowrap;
+	}
+
+	header #client {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		column-gap: 1em;
+	}
+
+	header #client #client-info {
+	}
+
+	header #client #client-icon {
+		font-size: 2em;
+	}
+</style>
+
+<header>
+	<span id="service">
+		<a id="service-logo" href="/"><img src="" loading="eager" /></a>
+		<a id="service-name" href="/">BK PRINT</a>
+	</span>
+
+	<span id="client">
+		<span id="client-info">
+			<div><%= user.name %></div>
+			<div><%= user.balance %></div>
+		</span>
+		<span id="client-icon">
+			<i class="fa-thin fa-user"></i>
+		</span>
+	</span>
+
+	<!-- <div class="user_info--hidden">
+        <span class="info">MSSV: <span class="info--mssv">2110509</span></span>
+        <span class="info">Khoa: <span class="info--khoa">Khoa học và Kỹ thuật Máy tính</span></span>
+
+        <div class="info-button">
+            <button type="button" class="button">Lịch sử</button>
+            <button type="button" class="button">Thay đổi thông tin</button>
+            <button type="button" class="button button_logout">Đăng xuất</button>
+        </div>
+    </div> -->
+</header>
