@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>HCMUT - SSO</title>
+
+		<link rel="preconnect" href="https://rsms.me/" />
+		<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+		<link rel="preconnect" href="https://kit-pro.fontawesome.com" />
+		<link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v6.4.2/css/pro.min.css" />
+
+		<link rel="stylesheet" href="/stylesheet/common.css" />
+
+		<style>
+			main {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+
+			form {
+				font-size: 2rem;
+			}
+
+			form button {
+				margin: 1em;
+				padding: 1em 2em;
+
+				border: 0;
+				color: white;
+				font-size: 1em;
+				background-color: deepskyblue;
+				cursor: pointer;
+
+				transition-property: box-shadow;
+				transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+				transition-duration: 150ms;
+			}
+
+			form button:hover {
+				box-shadow:
+					0 0 0 2px white,
+					0 0 0 4px deepskyblue;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<h1>Fake HCMUT SSO Service for testing only</h1>
+			<% if (session.role) { %>
+			<form action="/logout" method="post">
+				<span>Logged in as <%= session.role %></span>
+				<button type="submit">Logout</button>
+			</form>
+			<% } else { %>
+			<form action="/login?redirect=<%= redirect %>" method="post" enctype="application/x-www-form-urlencoded">
+				<button type="submit" name="role" value="student">Login as Student</button>
+				<button type="submit" name="role" value="officer">Login as Officer</button>
+			</form>
+			<% } %>
+		</main>
+	</body>
+</html>

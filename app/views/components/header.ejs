@@ -49,6 +49,7 @@
 	}
 
 	header #client #client-info {
+		text-transform: capitalize;
 	}
 
 	header #client #client-icon {
@@ -58,13 +59,13 @@
 
 <header>
 	<span id="service">
-		<a id="service-logo" href="/"><img src="" loading="eager" /></a>
+		<a id="service-logo" href="/"><img src="/image/logo.png" loading="eager" /></a>
 		<a id="service-name" href="/">BK PRINT</a>
 	</span>
 
 	<span id="client">
 		<span id="client-info">
-			<div><%= user.name %></div>
+			<div><%= user.role %></div>
 			<div><%= user.balance %></div>
 		</span>
 		<span id="client-icon">

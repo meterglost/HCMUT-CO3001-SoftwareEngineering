@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BK PRINT</title>
+
+		<link rel="preconnect" href="https://rsms.me/" />
+		<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+		<link rel="preconnect" href="https://kit-pro.fontawesome.com" />
+		<link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v6.4.2/css/pro.min.css" />
+
+		<link rel="stylesheet" href="/stylesheet/common.css" />
+
+		<style>
+			main {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: #e2e8f0;
+			}
+
+			main form#upload {
+				width: 30rem;
+				height: 20rem;
+				position: relative;
+
+				& input#file {
+					position: absolute;
+					width: 100%;
+					height: 100%;
+
+					z-index: -1;
+					visibility: hidden;
+				}
+
+				& label[for="file"] {
+					position: absolute;
+					width: 100%;
+					height: 100%;
+
+					padding: 2rem;
+					border: 2px dashed gray;
+					border-radius: 2rem;
+					background-color: white;
+
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					gap: 1em;
+					cursor: pointer;
+
+					transition-property: box-shadow;
+					transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+					transition-duration: 150ms;
+
+					& * {
+						pointer-events: none;
+					}
+				}
+
+				& label[for="file"].dragover {
+					box-shadow: 0 0 1em 0.5em rgb(0 0 0 / 0.2);
+				}
+			}
+
+			main #upload-info__wrapper {
+				height: 20rem;
+
+				& #upload-info {
+					position: absolute;
+
+					& ul {
+						list-style-type: "- ";
+
+						& li {
+							margin-bottom: 0.5em;
+						}
+					}
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<%- include("../components/header") %>
+
+		<main>
+			<form id="upload" method="POST" enctype="multipart/form-data" novalidate>
+				<input id="file" type="file" name="file" accept="image/png, image/jpeg, application/pdf" required />
+				<label for="file">
+					<div style="font-size: 6em"><i class="fa-thin fa-file-arrow-up"></i></div>
+					<div style="font-size: 1em">Kéo thả tệp vào đây hoặc <a href="#">chọn tệp</a> để tải lên</div>
+				</label>
+			</form>
+			<div id="upload-info__wrapper">
+				<div id="upload-info">
+					<ul>
+						<li>Chỉ chấp nhận file ảnh (.png, .jpg) hoặc PDF (.pdf)</li>
+						<li>Chỉ chấp nhận một file</li>
+						<li>Kích thước file tối đa 5MB</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+
+		<script>
+			const mainSection = document.querySelector("main");
+
+			const uploadForm = mainSection.querySelector("form");
+			const uploadFile = uploadForm.querySelector("input");
+			const uploadBox = mainSection.querySelector("label");
+
+			const uploadValidation = () => {
+				if (uploadFile.files.length !== 1) {
+					uploadFile.setCustomValidity("Upload only one file at a time");
+					return false;
+				}
+
+				if (
+					uploadFile.files[0].type !== "image/png" &&
+					uploadFile.files[0].type !== "image/jpeg" &&
+					uploadFile.files[0].type !== "application/pdf"
+				) {
+					uploadFile.setCustomValidity("Only PNG, JPEG and PDF files are allowed");
+					return false;
+				}
+
+				if (uploadFile.files[0].size > 5 * 1024 * 1024) {
+					uploadFile.setCustomValidity("File size must be less than 5MB");
+					return false;
+				}
+			};
+
+			uploadBox.addEventListener("dragenter", function (e) {
+				e.preventDefault();
+				uploadBox.classList.add("dragover");
+			});
+
+			uploadBox.addEventListener("dragleave", function (e) {
+				e.preventDefault();
+				uploadBox.classList.remove("dragover");
+			});
+
+			uploadBox.addEventListener("dragover", function (e) {
+				e.preventDefault();
+			});
+
+			uploadBox.addEventListener("drop", function (e) {
+				e.preventDefault();
+				uploadBox.classList.remove("dragover");
+
+				uploadFile.files = e.dataTransfer.files;
+				uploadForm.requestSubmit();
+			});
+
+			uploadFile.addEventListener("change", function (e) {
+				uploadForm.requestSubmit();
+			});
+
+			uploadForm.addEventListener("submit", function (e) {
+				if (uploadValidation() === false) {
+					e.preventDefault();
+					uploadFile.reportValidity();
+				}
+			});
+		</script>
+
+		<%- include("../components/footer") %>
+	</body>
+</html>
