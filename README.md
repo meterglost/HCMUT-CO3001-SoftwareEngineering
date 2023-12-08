@@ -1,17 +1,17 @@
 # HCMUT SMART PRINTING SERVICE
 
+## Prerequiseites
+
+-   Docker Deektop
+
 ## Usage
 
-First run the _Smart Printing Service_ application
+Run command
 
 ```shell
-npm start
+docker compose up -d
 ```
 
-Then run the _Fake SSO Service_ application
-
-```shell
-npm test
-```
+Then access service at http://localhost:3000
 
 ## Reference

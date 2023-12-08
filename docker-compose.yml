@@ -25,6 +25,36 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD}
       ME_CONFIG_MONGODB_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongo:27017/
 
+  app:
+    build: .
+    restart: always
+    depends_on:
+      - mongo
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app/:/workspace/app/:ro
+    environment:
+      - DB_USERNAME
+      - DB_PASSWORD
+    working_dir: /workspace/
+    command: npm start
+
+  sso:
+    build: .
+    restart: always
+    depends_on:
+      - mongo
+    ports:
+      - 3001:3001
+    volumes:
+      - ./testing/:/workspace/testing/:ro
+    environment:
+      - DB_USERNAME
+      - DB_PASSWORD
+    working_dir: /workspace/
+    command: npm test
+
 volumes:
   db:
   configdb:
