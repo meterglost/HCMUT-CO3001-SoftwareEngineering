@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BK PRINT</title>
+
+		<link rel="preconnect" href="https://rsms.me/" />
+		<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+		<link rel="preconnect" href="https://kit-pro.fontawesome.com" />
+		<link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v6.4.2/css/pro.min.css" />
+
+		<link rel="stylesheet" href="/stylesheet/common.css" />
+
+		<style>
+			main {
+				padding: 2.5rem 5rem;
+
+				display: flex;
+				flex-direction: row;
+				align-items: stretch;
+				justify-content: center;
+				column-gap: 5rem;
+				background-color: #e2e8f0;
+			}
+
+			div#preview {
+				aspect-ratio: 2 / 3;
+				background-color: gray;
+			}
+
+			div#config {
+				flex: 1;
+				max-width: 50%;
+
+				& form {
+					display: grid;
+					grid-template-columns: auto 1fr;
+					gap: 1em;
+				}
+
+				& button {
+					margin-top: 2rem;
+					padding: 0.5rem 1rem;
+					float: right;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<%- include("../components/header") %>
+
+		<main>
+			<div id="preview">
+				<img src="" alt="preview" />
+			</div>
+			<div id="config">
+				<form id="uploadConfig" action="" method="post" enctype="application/x-www-form-urlencoded">
+					<label for="printerId">Máy in</label>
+					<select name="printerId" id="printerId" required>
+						<% for (const printer of printers) { %>
+						<option value="<%= printer._id  %>"><%= printer.name %> - <%= printer.location %></option>
+						<% } %>
+					</select>
+
+					<label for="paperSize">Loại giấy</label>
+					<select name="paperSize" id="paperSize" required>
+						<option value="a2">A2</option>
+						<option value="a3">A3</option>
+						<option value="a4" selected>A4</option>
+						<option value="a5">A5</option>
+						<option value="a6">A6</option>
+					</select>
+
+					<label for="side">Kiểu in</label>
+					<select name="side" id="side" required>
+						<option value="oneside">1 mặt</option>
+						<option value="twoside">2 mặt</option>
+					</select>
+
+					<label for="color">Màu sắc</label>
+					<select name="color" id="color" required>
+						<option value="monochrome">Trắng đen</option>
+						<option value="colorful">Có màu</option>
+					</select>
+
+					<label for="layout">Hướng</label>
+					<select name="layout" id="layout" required>
+						<option value="portrait">Ngang</option>
+						<option value="landscape">Dọc</option>
+					</select>
+
+					<label for="copies">Số bản in</label>
+					<input type="number" name="copies" id="copies" min="1" max="10" step="1" value="1" required />
+				</form>
+				<button type="submit" form="uploadConfig">Gửi yêu cầu in (... trang)</button>
+			</div>
+		</main>
+
+		<%- include("../components/footer") %>
+	</body>
+</html>

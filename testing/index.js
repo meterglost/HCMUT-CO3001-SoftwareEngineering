@@ -2,9 +2,13 @@
  * Fake HCMUT-SSO service
  */
 
-const express = require("express");
-const session = require("express-session");
-const path = require("path");
+import express from "express";
+import session from "express-session";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = 3001;
@@ -54,6 +58,8 @@ app.post("/logout", (req, res) => {
 });
 
 app.get("/check", (req, res) => {
+	console.log(req.query);
+
 	if (!req.query["token"] || !req.query["role"]) {
 		return res.sendStatus(400);
 	}

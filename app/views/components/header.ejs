@@ -39,6 +39,7 @@
 		font-size: 2em;
 		font-weight: 700;
 		text-wrap: nowrap;
+		color: #374151;
 	}
 
 	header #client {
@@ -66,7 +67,9 @@
 	<span id="client">
 		<span id="client-info">
 			<div><%= user.role %></div>
-			<div><%= user.balance %></div>
+			<% if (user.role == "student") { %>
+			<div><%= user.balance %> trang</div>
+			<% } %>
 		</span>
 		<span id="client-icon">
 			<i class="fa-thin fa-user"></i>

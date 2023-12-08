@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BK PRINT</title>
+
+		<link rel="preconnect" href="https://rsms.me/" />
+		<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+		<link rel="preconnect" href="https://kit-pro.fontawesome.com" />
+		<link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v6.4.2/css/pro.min.css" />
+
+		<link rel="stylesheet" href="/stylesheet/common.css" />
+
+		<style>
+			main {
+				padding: 2.5rem 5rem;
+				background-color: #55aaff;
+			}
+
+			div#container {
+				width: 100%;
+				height: 100%;
+				padding: 1rem 0;
+				background-color: white;
+				border-radius: 1rem;
+			}
+
+			div#head-toolbox {
+				padding: 0 1rem;
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-end;
+				align-items: stretch;
+			}
+
+			button#newRequest {
+				padding: 1rem 1rem;
+				border-radius: 0.5rem;
+				border: 0;
+				cursor: pointer;
+			}
+
+			button#newRequest:hover {
+				background-color: #d1d5db;
+			}
+
+			table {
+				margin: 1rem 0;
+				width: 100%;
+				border-collapse: collapse;
+
+				& thead {
+					color: #6b7280;
+				}
+
+				& tbody {
+					background-color: #f3f4f6;
+				}
+
+				& tr {
+					box-shadow: inset 0 -1px 0 0 rgba(100, 121, 143, 0.122);
+
+					& th,
+					& td {
+						padding: 1rem;
+					}
+
+					& :nth-child(3),
+					& :nth-child(4),
+					& :nth-child(5),
+					& :nth-child(6) {
+						text-align: center;
+					}
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<%- include("../components/header") %>
+
+		<main>
+			<div id="container">
+				<div id="head-toolbox">
+					<a href="/print/upload">
+						<button id="newRequest">
+							<i class="fa-solid fa-plus" style="padding-right: 0.5rem"></i> In tài liệu
+						</button>
+					</a>
+				</div>
+				<table>
+					<thead>
+						<tr>
+							<th>Thời gian</th>
+							<th>Tập tin</th>
+							<th>Loại giấy</th>
+							<th>Số trang</th>
+							<th>Số lượng</th>
+							<th>Tổng số trang</th>
+							<th>Trạng thái</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% printRequests.forEach((request) => { %>
+						<tr>
+							<td></td>
+							<td><%= request.fileName %></td>
+							<td><%= request.paperSize %></td>
+							<td></td>
+							<td><%= request.copies %></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<% }) %>
+					</tbody>
+				</table>
+				<div id="foot-toolbox"></div>
+			</div>
+		</main>
+	</body>
+</html>

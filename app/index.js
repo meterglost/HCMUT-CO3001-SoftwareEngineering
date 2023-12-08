@@ -1,9 +1,12 @@
-const express = require("express");
-const session = require("express-session");
-const path = require("path");
+import express from "express";
+import session from "express-session";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = 3000;
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -27,15 +30,9 @@ app.get("/login", (req, res) => {
 	}
 
 	if (req.session.token && req.session.role) {
-		fetch(`${req.protocol}://${req.get("host")}/auth`).then((resp) => {
-			if (resp.status === 200) {
-				return res.redirect("/");
-			} else {
-				return res.redirect("/logout");
-			}
-		});
+		return res.redirect(`/auth?redirect=${req.query["redirect"] ?? "/"}`);
 	} else {
-		const redirect = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
+		const redirect = "http://localhost:3000/login";
 		return res.redirect(`http://localhost:3001/?redirect=${encodeURIComponent(redirect)}`);
 	}
 });
@@ -69,15 +66,19 @@ app.get("/", (req, res) => {
 });
 
 app.get("/auth", (req, res) => {
-	fetch("http://localhost:3001/check?token=" + atob(req.session.token) + "&role=" + req.session.role)
-		.then((resp) => resp.status)
-		.then((status) => res.sendStatus(status));
+	fetch("http://sso:3001/check?token=" + btoa(req.session.token) + "&role=" + req.session.role).then((check) =>
+		check.status === 200 ? res.redirect(req.query["redirect"] ?? "/") : res.redirect("/logout")
+	);
 });
 
-const print = require("./routers/print");
+import manage from "./routers/manage.mjs";
+
+app.use("/manage", manage);
+
+import print from "./routers/print.mjs";
 
 app.use("/print", print);
 
-app.listen(port, () => {
-	console.log(`App running at http://localhost:${port}`);
+app.listen(3000, () => {
+	console.log("App running at http://localhost:3000");
 });
