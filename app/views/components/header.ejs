@@ -55,6 +55,29 @@
 
 	header #client #client-icon {
 		font-size: 2em;
+		cursor: pointer;
+	}
+
+	#client-popup__wrapper {
+		position: relative;
+
+		& #client-popup {
+			font-size: 0.5em;
+			position: absolute;
+			right: 0;
+			width: max-content;
+			padding: 1rem 0;
+			background-color: white;
+			border-radius: 1rem;
+			box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+
+			& a {
+				padding: 0.5rem;
+				display: block;
+				text-decoration: none;
+				box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+			}
+		}
 	}
 </style>
 
@@ -73,17 +96,20 @@
 		</span>
 		<span id="client-icon">
 			<i class="fa-thin fa-user"></i>
+			<div id="client-popup__wrapper">
+				<div id="client-popup" hidden>
+					<a href="/logout">Đăng xuất</a>
+					<% if (user.role == "student") { %>
+					<a href="#">Mua thêm trang in</a>
+					<% } %>
+				</div>
+			</div>
 		</span>
 	</span>
 
-	<!-- <div class="user_info--hidden">
-        <span class="info">MSSV: <span class="info--mssv">2110509</span></span>
-        <span class="info">Khoa: <span class="info--khoa">Khoa học và Kỹ thuật Máy tính</span></span>
-
-        <div class="info-button">
-            <button type="button" class="button">Lịch sử</button>
-            <button type="button" class="button">Thay đổi thông tin</button>
-            <button type="button" class="button button_logout">Đăng xuất</button>
-        </div>
-    </div> -->
+	<script>
+		document.querySelector("#client-icon").addEventListener("click", (event) => {
+			document.querySelector("#client-popup").toggleAttribute("hidden");
+		});
+	</script>
 </header>

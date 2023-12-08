@@ -1,5 +1,6 @@
 import express from "express";
 import database from "../database.mjs";
+import { ObjectId } from "mongodb";
 
 const manage = express.Router();
 
@@ -35,6 +36,41 @@ manage.post("/add", async (req, res) => {
 			name: req.body.name,
 			location: req.body.location,
 		});
+		res.redirect("/manage");
+	} catch (err) {
+		console.log(err);
+		res.status(500).redirect("/manage");
+	}
+});
+
+manage.get("/update/:id", async (req, res) => {
+	res.render("manage/update", {
+		user: req.session,
+		printer: await database.collection("printer").findOne({ _id: new ObjectId(req.params.id) }),
+	});
+});
+
+manage.post("/update/:id", async (req, res) => {
+	try {
+		await database.collection("printer").updateOne(
+			{ _id: new ObjectId(req.params.id) },
+			{
+				$set: {
+					name: req.body.name,
+					location: req.body.location,
+				},
+			}
+		);
+		res.redirect("/manage");
+	} catch (err) {
+		console.log(err);
+		res.status(500).redirect("/manage");
+	}
+});
+
+manage.get("/delete/:id", async (req, res) => {
+	try {
+		await database.collection("printer").deleteOne({ _id: new ObjectId(req.params.id) });
 		res.redirect("/manage");
 	} catch (err) {
 		console.log(err);

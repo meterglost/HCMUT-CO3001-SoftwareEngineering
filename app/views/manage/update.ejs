@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BK PRINT</title>
+
+		<link rel="preconnect" href="https://rsms.me/" />
+		<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+		<link rel="preconnect" href="https://kit-pro.fontawesome.com" />
+		<link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v6.4.2/css/pro.min.css" />
+
+		<link rel="stylesheet" href="/stylesheet/common.css" />
+
+		<style>
+			main {
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				background-color: #e2e8f0;
+			}
+
+			form {
+				display: grid;
+				grid-template-columns: auto 1fr;
+				gap: 1em;
+			}
+
+			button {
+				margin-top: 2rem;
+				padding: 0.5rem 1rem;
+				float: right;
+			}
+		</style>
+	</head>
+	<body>
+		<%- include("../components/header") %>
+
+		<main>
+			<div id="container">
+				<form id="updatePrinter" method="post" enctype="application/x-www-form-urlencoded">
+					<label for="name">Tên máy in</label>
+					<input type="text" name="name" id="name" value="<%= printer.name %>" />
+					<label for="location">Vị trí của máy in</label>
+					<input type="text" name="location" id="location" value="<%= printer.location %>" />
+				</form>
+				<button type="submit" form="updatePrinter">Cập nhật thông tin máy in</button>
+			</div>
+		</main>
+
+		<%- include("../components/footer") %>
+	</body>
+</html>

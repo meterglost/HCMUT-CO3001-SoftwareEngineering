@@ -94,6 +94,7 @@
 							<th>Tên máy in</th>
 							<th>Vị trí</th>
 							<th>Trạng thái</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -107,6 +108,10 @@
 								<% } else { %>
 								<p class="ready">Sẵn sàng</p>
 								<% } %>
+							</td>
+							<td>
+								<a href="/manage/update/<%= printer._id %>"><button>Cập nhật</button></a>
+								<a href="/manage/delete/<%= printer._id %>"><button>Xóa</button></a>
 							</td>
 						</tr>
 						<% }) %>
