@@ -89,13 +89,21 @@ print.post("/config", async (req, res) => {
 			{ _id: new ObjectId(req.session.printRequestId) },
 			{
 				$set: {
-					printerId: req.body.printer,
+					time: new Date().toLocaleString(),
+					printerId: req.body.printerId,
 					paperSize: req.body.paperSize,
 					side: req.body.side,
 					color: req.body.color,
 					layout: req.body.layout,
 					copies: req.body.copies,
+					status: "processing",
 				},
+			}
+		);
+		await database.collection("printer").updateOne(
+			{ _id: new ObjectId(req.body.printerId) },
+			{
+				$push: { requestId: new ObjectId(req.session.printRequestId) },
 			}
 		);
 		res.redirect("/print");

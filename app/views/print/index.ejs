@@ -64,13 +64,14 @@
 
 					& th,
 					& td {
-						padding: 1rem;
+						padding: 1rem 2rem;
 					}
 
 					& :nth-child(3),
 					& :nth-child(4),
 					& :nth-child(5),
-					& :nth-child(6) {
+					& :nth-child(6),
+					& :nth-child(7) {
 						text-align: center;
 					}
 				}
@@ -105,13 +106,13 @@
 					<tbody>
 						<% printRequests.forEach((request) => { %>
 						<tr>
-							<td></td>
+							<td><%= request.time %></td>
 							<td><%= request.fileName %></td>
 							<td><%= request.paperSize %></td>
 							<td></td>
 							<td><%= request.copies %></td>
 							<td></td>
-							<td></td>
+							<td><%= request.status %></td>
 						</tr>
 						<% }) %>
 					</tbody>
